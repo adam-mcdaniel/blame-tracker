@@ -3,7 +3,7 @@
 
 ![Blame Tracker](assets/blame-tracker.png)
 
-[***Click here to go to script!***](https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py)
+[***Click here to go to the script!***](https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py)
 
 ## Usage
 
