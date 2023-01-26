@@ -3,6 +3,8 @@
 
 ![Blame Tracker](assets/blame-tracker.png)
 
+[***Click here to go to script!***](https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py)
+
 ## Usage
 
 Blame-tracker has several flags, but there are only a few you need to know about:
