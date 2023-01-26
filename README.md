@@ -1,5 +1,5 @@
 # blame-tracker.py
-Accuse guilty developers with blame-tracker!
+*Accuse guilty developers!*
 
 ![Blame Tracker](assets/blame-tracker.png)
 
