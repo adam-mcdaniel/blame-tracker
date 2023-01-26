@@ -12,7 +12,7 @@ Blame-tracker has several flags, but there are only a few you need to know about
 ### Important Flags
 
 |Short|Long|Args|Description|
-|-|-|-|-|
+|-|-|:-:|-|
 |`-i`|`--info`|❌|Print info messages about the statistics related to the commits.|
 |`-d`|`--days-ago`|`int`|Set or shift the start date for the collection of commits back by a number of days.|
 |`-t0`|`--since`|An American formatted date like `1/31/1970` (January 31st, 1970), or an [ISO 8601 formatted date](https://en.wikipedia.org/wiki/ISO_8601).|Set the start date for the collection of commits.|
@@ -27,7 +27,7 @@ Blame-tracker has several flags, but there are only a few you need to know about
 These are flags that you probably won't need to use, but they're here if you need them.
 
 |Short|Long|Args|Description|
-|-|-|-|-|
+|-|-|:-:|-|
 |`-f`|`--format`|A format string to print the accused code with.|The format arguments used are `name` (the name of the accused file), `path` (the path of the accused file), `author` (the author of the file), `content` (the line in the accusation), `date` (the date of the commit), and `time` (the time of the commit). The default format specifier is `"{name:12} ({author} on {date} at {time}): {content}"`|
 |`-w`|`--weeks-ago`|`int`|Set or shift the start date for the collection of commits back by a number of weeks.|
 |`-dir`|`--directory`|A path to a Git repository.|Set the directory of the git repository to accuse. By default this is just the current directory.|
