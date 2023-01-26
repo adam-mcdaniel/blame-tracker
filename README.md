@@ -67,13 +67,26 @@ Requirements:
 
 You can run `blame-tracker.py` as a script by running `python3 blame-tracker.py` in the directory of the repository you want to blame. You can also make it an executable with `chmod +x blame-tracker.py` and run it with `./blame-tracker.py`. You can also add the directory of the repository to your `PATH` environment variable to run it from anywhere. This is the easiest way to use `blame-tracker.py`, and is possible on all platforms (but on Windows it's a bit more tedious).
 
+##### Simple Download and Run
+
+This is just a simple two-liner to download and run the script. You can also download it with `git` if you prefer.
+
+```bash
+curl -L https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py -o blame-tracker.py
+python3 blame-tracker.py --since "1/1/2023" -by "Adam McDaniel" -o "commits.txt"
+```
+
+##### Download with Git, Make Executable, and Run
+
+Here's a simple snippet to download, make executable, and run the script.
+
 ```bash
 ## Download the script with git
 git clone https://github.com/adam-mcdaniel/blame-tracker
 cp blame-tracker/blame-tracker.py .
 rm -rf blame-tracker
-## Download the script with curl
-curl -O https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py
+## (Or download the script with curl)
+# curl -O https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py
 
 ## Make the script executable (optional)
 chmod +x blame-tracker.py
