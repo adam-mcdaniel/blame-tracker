@@ -61,6 +61,7 @@ def main():
     parser.add_argument('-t1', '--until', dest='end_date', type=str, help='The end date📅 in ISO 8601 format (default is now).', default=datetime.now().isoformat())
     parser.add_argument('-d', '--days-ago', type=int, help='The number of days ago⏱️ to shift the search.', default=0)
     parser.add_argument('-w', '--weeks-ago', type=int, help='The number of weeks ago⏱️ to shift the search.', default=0)
+    parser.add_argument('-m', '--minutes-ago', type=int, help='The number of minutes ago⏱️ to shift the search.', default=0)
     parser.add_argument('-in', '--include', dest='include', type=str, help='The file patterns📂 to search for (default is "**/*").', default=['**/*'], nargs='+')
     parser.add_argument('-ex', '--exclude', type=str, help='The file patterns📂 to exclude (default is none).', default=[], nargs='+')
     parser.add_argument('-f', '--format', type=str, help=f'The format string🧶 to print each accusation (default is "{DEFAULT_FORMAT}")', default=DEFAULT_FORMAT)
@@ -113,11 +114,15 @@ def main():
     if args.verbose >= 3:
         # Print debug information if verbose level is 3 or higher
         info("Collecting accusations...")
-
+    # Get the list of files to search
+    files = get_files(args.repo, args.include, args.exclude)
+    if args.verbose >= 1:
+        # Print info messages if verbose level is 1 or higher
+        info(f"searching for blame in:")
+        for i, file in enumerate(files):
+            info(f"   {i+1}. {file}")
     # Collect the accusations
-    accusations_by_file = accuse_files(
-        args.repo, get_files(args.repo, args.include, args.exclude),
-        args.verbose, args.silence_warnings)
+    accusations_by_file = accuse_files(args.repo, files, args.verbose, args.silence_warnings)
     
     if args.verbose >= 3:
         # Print debug information if verbose level is 3 or higher
@@ -189,19 +194,15 @@ def main():
         total_non_blank = sum([stats['non-blank'] for stats in authors_stats.values()])
 
         for author, stats in authors_stats.items():
-            if args.author and author.lower() not in args.author:
-                # If the user specified an author, filter out accusations by
-                # other authors. If the user did not specify an author, include
-                # all accusations.
-                continue
             # Print the statistics for each author
             info(f'{author}:')
+            info(f'    {stats["chars"]} characters')
             info(f'    {stats["lines"]} lines')
             info(f'    {stats["non-blank-lines"]} non-whitespace lines')
-            info(f'    {stats["chars"]} characters')
+            info(f'    {stats["two-or-more-char-lines"]} two-or-more-char lines')
             info(f'    {stats["non-blank"]} non-whitespace characters')
             # Print the percentage of non-blank characters written by the author
-            info(f'    {stats["non-blank"] / float(total_non_blank) * 100:2.0f}% of code since {start_date.month:02d}/{start_date.day:02d}/{start_date.year}')
+            info(f'    Composes {stats["non-blank"] / float(total_non_blank) * 100:2.0f}% of changes since {start_date.month:02d}/{start_date.day:02d}/{start_date.year}')
 
     if not all_accusations and not args.silence_warnings:
         # Print a message if no authors were found
@@ -245,7 +246,7 @@ def analyze_author(author: str, accusations: list[tuple[str, datetime, str]]) ->
         return stats[author]
     else:
         # If the author has no accusations, return 0 for all statistics
-        return {'lines': 0, 'chars': 0, 'non-blank': 0, 'non-blank-lines': 0, 'avg-line-len': 0}
+        return {'lines': 0, 'chars': 0, 'non-blank': 0, 'two-or-more-char-lines': 0, 'non-blank-lines': 0, 'avg-line-len': 0}
 
 def analyze_authors(accusations: list[tuple[str, datetime, str]]) -> dict[str, dict[str, int]]:
     '''
@@ -273,11 +274,14 @@ def analyze_authors(accusations: list[tuple[str, datetime, str]]) -> dict[str, d
     for author, _, content in accusations:
         author = author.lower()
         # Get the author's statistics
-        result.setdefault(author, {'lines': 0, 'chars': 0, 'non-blank': 0, 'non-blank-lines': 0, 'avg-line-len': 0})
+        result.setdefault(author, {'lines': 0, 'chars': 0, 'two-or-more-char-lines': 0, 'non-blank': 0, 'non-blank-lines': 0, 'avg-line-len': 0})
         result[author]['lines'] += 1
-        if content.strip() == '':
+        if content.strip() != '':
             # Check that the line is not blank, then increment the non-blank line count
             result[author]['non-blank-lines'] += 1
+        if len(content.strip()) >= 2:
+            # Check that the line is at least two characters long, then increment the two-or-more-char line count
+            result[author]['two-or-more-char-lines'] += 1
         result[author]['chars'] += len(content)
         result[author]['non-blank'] += len(content.replace(' ', '').replace('\t', ''))
 

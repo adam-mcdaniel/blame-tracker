@@ -36,6 +36,10 @@ These are flags that you probably won't need to use, but they're here if you nee
 
 ### Examples
 
+![Example](assets/example.png)
+
+Here are some examples of how to use `blame-tracker.py`:
+
 ```bash
 # Print the blame for all C files (recursively) in the current repository.
 blame-tracker.py -in "**/*.c"
