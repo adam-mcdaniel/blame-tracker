@@ -30,7 +30,7 @@ These are flags that you probably won't need to use, but they're here if you nee
 |-|-|:-:|-|
 |`-f`|`--format`|A format string to print the accused code with.|The format arguments used are `name` (the name of the accused file), `path` (the path of the accused file), `author` (the author of the file), `content` (the line in the accusation), `date` (the date of the commit), and `time` (the time of the commit). The default format specifier is `"{name:12} ({author} on {date} at {time}): {content}"`|
 |`-w`|`--weeks-ago`|`int`|Set or shift the start date for the collection of commits back by a number of weeks.|
-|`-dir`|`--directory`|A path to a Git repository.|Set the directory of the git repository to accuse. By default this is just the current directory.|
+|`-r`|`--repo`|A path to a Git repository.|Set the directory of the git repository to accuse. By default this is just the current directory.|
 |`-ws`|`--keep-whitespace`|❌|Use this flag to keep whitespace lines in the output file.|
 |`-s`|`--silence-warnings`|❌|Use this flag to silence warnings. This will allow bytes-like data to be accused and included in the output file silently. Don't use this if you don't wanna include massive binary files (which you probably don't).|
 |`-v`|`--verbose`|`1`, `2`, or `3`|Set the verbosity level for printing out runtime information. `1` is the same as enabling `--info`.|
