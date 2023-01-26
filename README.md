@@ -88,6 +88,17 @@ python3 blame-tracker.py -h
 
 You can install `blame-tracker.py` on Linux very simply by saving it to your `~/.local/bin` directory. You can do this by cloning the repository and copying the file over, or by using `curl` to download the file directly.
 
+#### Through Curl
+
+```bash
+# If this directory doesn't exist, you can create it with `mkdir -p ~/.local/bin`, and add it to your PATH with `export PATH="$PATH:$HOME/.local/bin"` in your `.bashrc` or `.zshrc` file.
+curl -L https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py -o ~/.local/bin/blame-tracker.py
+chmod +x ~/.local/bin/blame-tracker.py
+
+# Run the script
+blame-tracker.py -h
+```
+
 #### Through Git
 
 ```bash
@@ -97,13 +108,8 @@ chmod +x blame-tracker.py
 # If this directory doesn't exist, you can create it with `mkdir -p ~/.local/bin`, and add it to your PATH with `export PATH="$PATH:$HOME/.local/bin"` in your `.bashrc` or `.zshrc` file.
 cp blame-tracker.py ~/.local/bin/
 cd ..
-rm -rf blame-tracker
-```
+rm -rf ./blame-tracker
 
-#### Through Curl
-
-```bash
-# If this directory doesn't exist, you can create it with `mkdir -p ~/.local/bin`, and add it to your PATH with `export PATH="$PATH:$HOME/.local/bin"` in your `.bashrc` or `.zshrc` file.
-curl -L https://raw.githubusercontent.com/adam-mcdaniel/blame-tracker/main/blame-tracker.py -o ~/.local/bin/blame-tracker.py
-chmod +x ~/.local/bin/blame-tracker.py
+# Run the script
+blame-tracker.py -h
 ```
